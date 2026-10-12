@@ -67,3 +67,13 @@ incremental_db/
 db/
 _output_files/
 PLLJ_PLLSPE_INFO.txt
+
+db/
+incremental_db/
+output_files/
+*.qws          # préférences d'affichage Quartus, propres à ta machine
+*.cf           # bibliothèque work de GHDL
+*.ghw
+*.vcd
+*.fst
+greybox_tmp/

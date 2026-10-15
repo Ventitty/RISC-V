@@ -45,26 +45,26 @@ begin
         processor_clock <= clock_counter(CLOCK_DIVIDE_EXPONENT-1);
     end generate divided_clock;
 
-    processor : entity work.riscv_core
+    processor : entity work.RISCV_CPU
         port map (
             clk           => processor_clock,
             reset         => reset,
             display_value => display_value
         );
 
-    digit_0 : entity work.seven_segment_decoder
+    digit_0 : entity work.seven_seg
         generic map (SEGMENTS_ACTIVE_LOW => SEGMENTS_ACTIVE_LOW)
         port map (hex_digit => display_value(3 downto 0), segments => hex_0);
 
-    digit_1 : entity work.seven_segment_decoder
+    digit_1 : entity work.seven_seg
         generic map (SEGMENTS_ACTIVE_LOW => SEGMENTS_ACTIVE_LOW)
         port map (hex_digit => display_value(7 downto 4), segments => hex_1);
 
-    digit_2 : entity work.seven_segment_decoder
+    digit_2 : entity work.seven_seg
         generic map (SEGMENTS_ACTIVE_LOW => SEGMENTS_ACTIVE_LOW)
         port map (hex_digit => display_value(11 downto 8), segments => hex_2);
 
-    digit_3 : entity work.seven_segment_decoder
+    digit_3 : entity work.seven_seg
         generic map (SEGMENTS_ACTIVE_LOW => SEGMENTS_ACTIVE_LOW)
         port map (hex_digit => display_value(15 downto 12), segments => hex_3);
 

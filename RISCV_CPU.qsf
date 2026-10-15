@@ -1,18 +1,18 @@
 # -------------------------------------------------------------------------- #
 #
 # Copyright (C) 2025  Altera Corporation. All rights reserved.
-# Your use of Altera Corporation's design tools, logic functions 
-# and other software and tools, and any partner logic 
-# functions, and any output files from any of the foregoing 
-# (including device programming or simulation files), and any 
-# associated documentation or information are expressly subject 
-# to the terms and conditions of the Altera Program License 
+# Your use of Altera Corporation's design tools, logic functions
+# and other software and tools, and any partner logic
+# functions, and any output files from any of the foregoing
+# (including device programming or simulation files), and any
+# associated documentation or information are expressly subject
+# to the terms and conditions of the Altera Program License
 # Subscription Agreement, the Altera Quartus Prime License Agreement,
 # the Altera IP License Agreement, or other applicable license
 # agreement, including, without limitation, that your use is for
 # the sole purpose of programming logic devices manufactured by
 # Altera and sold by Altera or its authorized distributors.  Please
-# refer to the Altera Software License Subscription Agreements 
+# refer to the Altera Software License Subscription Agreements
 # on the Quartus Prime software download page.
 #
 # -------------------------------------------------------------------------- #
@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "MAX 10"
 set_global_assignment -name DEVICE 10M50DAF484C7G
-set_global_assignment -name TOP_LEVEL_ENTITY RISCV_CPU
+set_global_assignment -name TOP_LEVEL_ENTITY fpga
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 25.1STD.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:10:43  OCTOBRE 12, 2026"
 set_global_assignment -name LAST_QUARTUS_VERSION "25.1std.0 Lite Edition"
@@ -54,15 +54,42 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_location_assignment PIN_P11 -to clk
-set_location_assignment PIN_A8 -to led
-set_location_assignment PIN_B8 -to rst_n
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to clk
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to led
-set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to rst_n
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to rst_n
+set_location_assignment PIN_P11 -to board_clock
+set_location_assignment PIN_B8 -to reset_button
+set_location_assignment PIN_C14 -to hex_0[0]
+set_location_assignment PIN_E15 -to hex_0[1]
+set_location_assignment PIN_C15 -to hex_0[2]
+set_location_assignment PIN_C16 -to hex_0[3]
+set_location_assignment PIN_E16 -to hex_0[4]
+set_location_assignment PIN_D17 -to hex_0[5]
+set_location_assignment PIN_C17 -to hex_0[6]
+set_location_assignment PIN_C18 -to hex_1[0]
+set_location_assignment PIN_D18 -to hex_1[1]
+set_location_assignment PIN_E18 -to hex_1[2]
+set_location_assignment PIN_B16 -to hex_1[3]
+set_location_assignment PIN_A17 -to hex_1[4]
+set_location_assignment PIN_A18 -to hex_1[5]
+set_location_assignment PIN_B17 -to hex_1[6]
+set_location_assignment PIN_B20 -to hex_2[0]
+set_location_assignment PIN_A20 -to hex_2[1]
+set_location_assignment PIN_B19 -to hex_2[2]
+set_location_assignment PIN_A21 -to hex_2[3]
+set_location_assignment PIN_B21 -to hex_2[4]
+set_location_assignment PIN_C22 -to hex_2[5]
+set_location_assignment PIN_B22 -to hex_2[6]
+set_location_assignment PIN_F21 -to hex_3[0]
+set_location_assignment PIN_E22 -to hex_3[1]
+set_location_assignment PIN_E21 -to hex_3[2]
+set_location_assignment PIN_C19 -to hex_3[3]
+set_location_assignment PIN_C20 -to hex_3[4]
+set_location_assignment PIN_D19 -to hex_3[5]
+set_location_assignment PIN_E17 -to hex_3[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to board_clock
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to reset_button
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to hex_0[*]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to hex_1[*]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to hex_2[*]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to hex_3[*]
 set_global_assignment -name VHDL_FILE src/rtl/display/seven_seg.vhd
 set_global_assignment -name VHDL_FILE src/rtl/utils/ual_banc.vhd
 set_global_assignment -name VHDL_FILE src/rtl/utils/sign_ext.vhd
@@ -85,4 +112,5 @@ set_global_assignment -name VHDL_FILE src/RISCV_CPU.vhd
 set_global_assignment -name SDC_FILE RISCV_CPU.sdc
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

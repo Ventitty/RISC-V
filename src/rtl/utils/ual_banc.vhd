@@ -31,17 +31,17 @@ architecture Structural of ual_banc is
     signal operation_result : std_logic_vector(31 downto 0);
 begin
 
-    register_file : entity work.regfile
+    register_file : entity work.registers
         port map (
-            clk            => clk,
-            reset          => reset,
-            write_data     => operation_result,
-            read_address_a => read_address_a,
-            read_address_b => read_address_b,
-            write_address  => write_address,
-            write_enable   => write_enable,
-            read_data_a    => register_data_a,
-            read_data_b    => register_data_b
+            CLK           => clk,
+            RST           => reset,
+            write_data    => operation_result,
+            RA            => read_address_a,
+            RB            => read_address_b,
+            write_address => write_address,
+            write_enable  => write_enable,
+            A             => register_data_a,
+            B             => register_data_b
         );
 
     arithmetic_logic_unit : entity work.alu

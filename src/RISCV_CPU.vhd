@@ -5,6 +5,8 @@ entity RISCV_CPU is
     port (
         clk           : in  std_logic;
         reset         : in  std_logic;
+        irq0          : in  std_logic;
+        irq1          : in  std_logic;
         display_value : out std_logic_vector(31 downto 0)
     );
 end entity;
@@ -29,6 +31,11 @@ architecture Structural of RISCV_CPU is
     signal memory_write_enable   : std_logic;
     signal writeback_select      : std_logic_vector(1 downto 0);
 
+    signal irq                   : std_logic;
+    signal vic_pc                : std_logic_vector(31 downto 0);
+    signal irq_end               : std_logic;
+    signal irq_serv              : std_logic;
+
 begin
 
     fetch : entity work.instruction_fetch_unit
@@ -37,9 +44,13 @@ begin
             reset           => reset,
             immediate       => immediate,
             pc_select       => pc_select,
+            irq             => irq,
+            vic_pc          => vic_pc,
+            irq_end         => irq_end,
             instruction     => instruction,
             program_counter => program_counter,
-            pc_plus_4       => pc_plus_4
+            pc_plus_4       => pc_plus_4,
+            irq_serv        => irq_serv
         );
 
     processing : entity work.processing_unit
@@ -77,7 +88,19 @@ begin
             alu_control           => alu_control,
             memory_write_enable   => memory_write_enable,
             writeback_select      => writeback_select,
-            display_value         => display_value
+            display_value         => display_value,
+            irq_end               => irq_end
+        );
+
+    interrupt_controller : entity work.vic
+        port map (
+            clk      => clk,
+            reset    => reset,
+            irq_serv => irq_serv,
+            irq0     => irq0,
+            irq1     => irq1,
+            irq      => irq,
+            vic_pc   => vic_pc
         );
 
 end architecture Structural;

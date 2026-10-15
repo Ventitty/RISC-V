@@ -16,7 +16,8 @@ entity control_unit is
         alu_control           : out std_logic_vector(2 downto 0);
         memory_write_enable   : out std_logic;
         writeback_select      : out std_logic_vector(1 downto 0);
-        display_value         : out std_logic_vector(31 downto 0)
+        display_value         : out std_logic_vector(31 downto 0);
+        irq_end               : out std_logic
     );
 end entity control_unit;
 
@@ -38,7 +39,8 @@ begin
             alu_control           => alu_control,
             memory_write_enable   => memory_write_enable,
             writeback_select      => writeback_select,
-            display_write_enable  => display_write_enable
+            display_write_enable  => display_write_enable,
+            irq_end               => irq_end
         );
 
     display_value_register : entity work.display_register

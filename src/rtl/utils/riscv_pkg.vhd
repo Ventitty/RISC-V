@@ -45,4 +45,6 @@ package riscv_pkg is
     constant FUNCT7_ADD : std_logic_vector(6 downto 0) := "0000000";
     constant FUNCT7_SUB : std_logic_vector(6 downto 0) := "0100000";
 
+    constant INSTRUCTION_MRET : std_logic_vector(31 downto 0) := x"30200073";
+
 end package riscv_pkg;

@@ -14,14 +14,15 @@ entity instruction_decoder is
         alu_control           : out std_logic_vector(2 downto 0);
         memory_write_enable   : out std_logic;
         writeback_select      : out std_logic_vector(1 downto 0);
-        display_write_enable  : out std_logic
+        display_write_enable  : out std_logic;
+        irq_end               : out std_logic
     );
 end entity instruction_decoder;
 
 architecture RTL of instruction_decoder is
 
     type instruction_type is (I_LUI, I_ADDI, I_ADD, I_SUB, I_LW, I_SW,
-                              I_BEQ, I_BNE, I_BLT, I_JAL, I_INVALID);
+                              I_BEQ, I_BNE, I_BLT, I_JAL, I_MRET, I_INVALID);
 
     signal current_instruction : instruction_type;
 
@@ -31,11 +32,14 @@ architecture RTL of instruction_decoder is
 
 begin
 
-    identify_instruction : process (opcode, funct3, funct7)
+    identify_instruction : process (instruction, opcode, funct3, funct7)
     begin
         current_instruction <= I_INVALID;
 
-        if opcode = OPCODE_LUI then
+        if instruction = INSTRUCTION_MRET then
+            current_instruction <= I_MRET;
+
+        elsif opcode = OPCODE_LUI then
             current_instruction <= I_LUI;
 
         elsif opcode = OPCODE_JAL then
@@ -78,6 +82,7 @@ begin
         memory_write_enable   <= '0';
         writeback_select      <= WRITEBACK_FROM_ALU;
         display_write_enable  <= '0';
+        irq_end               <= '0';
 
         case current_instruction is
 
@@ -129,6 +134,9 @@ begin
                 register_write_enable <= '1';
                 immediate_format      <= IMMEDIATE_FORMAT_J;
                 writeback_select      <= WRITEBACK_FROM_PC_PLUS_4;
+
+            when I_MRET =>
+                irq_end               <= '1';
 
             when I_INVALID =>
                 null;

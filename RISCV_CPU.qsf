@@ -51,18 +51,38 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_symbol
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
-set_global_assignment -name VHDL_FILE src/RISCV_CPU.vhd
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_location_assignment PIN_P11 -to clk
 set_location_assignment PIN_A8 -to led
 set_location_assignment PIN_B8 -to rst_n
-set_global_assignment -name SDC_FILE RISCV_CPU.sdc
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led
 set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to clk
 set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to led
 set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to rst_n
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to rst_n
+set_global_assignment -name VHDL_FILE src/rtl/display/seven_seg.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/ual_banc.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/sign_ext.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/riscv_pkg.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/registers.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/PSR_register.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/mux3_1.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/mux2_1.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/instruction_memory.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/instruction_decoder.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/imm_gen.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/display_register.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/data_memory.vhd
+set_global_assignment -name VHDL_FILE src/rtl/utils/alu.vhd
+set_global_assignment -name VHDL_FILE src/rtl/processing_unit.vhd
+set_global_assignment -name VHDL_FILE src/rtl/instruction_fetch_unit.vhd
+set_global_assignment -name VHDL_FILE src/rtl/fpga.vhd
+set_global_assignment -name VHDL_FILE src/rtl/control_unit.vhd
+set_global_assignment -name VHDL_FILE src/RISCV_CPU.vhd
+set_global_assignment -name SDC_FILE RISCV_CPU.sdc
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
